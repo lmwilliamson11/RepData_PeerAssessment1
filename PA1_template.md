@@ -28,7 +28,7 @@ dailysteps <- movedata %>%
 hist(dailysteps$total_steps, breaks = 10, main = "Total Daily Steps", xlab = "Total steps")
 ```
 
-![](PA1_template_files/figure-html/load data and plot histogram-1.png)<!-- -->
+![](PA1_template_files/figure-html/total daily steps-1.png)<!-- -->
 
 ## What is the average daily activity pattern?
 
@@ -92,11 +92,11 @@ median_diff <- median_steps_narep - median_steps
 hist(dailynasrep$total_steps, breaks = 10, main= "Total Daily Steps (NAs replaced)", xlab = "Total Steps")
 ```
 
-![](PA1_template_files/figure-html/update dataset to remove NAs-1.png)<!-- -->
+![](PA1_template_files/figure-html/daily steps imputed NAs-1.png)<!-- -->
 
-The mean number of steps per day for the updated dataset with imputed NA values is 1.0766189\times 10^{4}, a difference of 0 compared to the original dataset 
+The mean number of steps per day for the updated dataset with imputed NA values is 1.0766189\times 10^{4}, a difference of 0 steps compared to the original dataset 
 
-The median number of steps per day for the updated dataset with imputed NA values is 1.0766189\times 10^{4}, a difference of 1.1886792 compared to the original dataset
+The median number of steps per day for the updated dataset with imputed NA values is 1.0766189\times 10^{4}, a difference of 1.1886792 steps compared to the original dataset
 
 *Imputing NA values using this strategy does not significantly affect the overall mean and median daily step totals*
 
@@ -104,6 +104,7 @@ The median number of steps per day for the updated dataset with imputed NA value
 Here is a plot showing the average steps per interval for weekdays and weekends
 
 ```r
+# create weekday/weekend column and plot average steps per interval for weekdays and weekends
 library(ggplot2)
 
 movedata$weekday <- weekdays(movedata$date)
@@ -126,5 +127,5 @@ ggplot(intervalsteps_weekday, aes(interval, mean_steps)) +
                facet_wrap(~ weekday, nrow = 2)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](PA1_template_files/figure-html/weekday vs weekend-1.png)<!-- -->
         

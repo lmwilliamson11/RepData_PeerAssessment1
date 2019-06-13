@@ -18,7 +18,7 @@ movedata$date <- as.Date(movedata$date)
 
 ## What is mean total number of steps taken per day?
 Here is a histogram showing the total number of steps per day
-```{r, load data and plot histogram}
+```{r, total daily steps}
 library(dplyr)
 # calculate and plot total steps per day
 dailysteps <- movedata %>% 
@@ -59,7 +59,7 @@ There are `r nas` NAs in the steps dataset
 NAs will be replaced with the average number of steps for the interval
 
 Here is a plot showing the daily number of steps with the imputed NAs in the dataset
-```{r, update dataset to remove NAs}
+```{r, daily steps imputed NAs}
 # Replace NAs with mean steps for that interval and plot histogram
 nasreplaced <- movedata
 for(i in 1:length(nasreplaced$steps)) {
@@ -89,7 +89,7 @@ The median number of steps per day for the updated dataset with imputed NA value
 
 ## Are there differences in activity patterns between weekdays and weekends?
 Here is a plot showing the average steps per interval for weekdays and weekends
-```{r}
+```{r, weekday vs weekend}
 # create weekday/weekend column and plot average steps per interval for weekdays and weekends
 library(ggplot2)
 
