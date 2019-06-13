@@ -4,12 +4,11 @@ output:
   html_document:
     keep_md: true
 ---
-```{r, setoption, echo=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
-```
+
 
 ## Loading and preprocessing the data
-```{r, cache=TRUE}
+
+```r
 setwd("~/Documents/Coursera code/Reproducible_data/RepData_PeerAssessment1-master/")
 unzip("./activity.zip")
 movedata <- read.csv("./activity.csv")
@@ -18,7 +17,8 @@ movedata$date <- as.Date(movedata$date)
 
 ## What is mean total number of steps taken per day?
 Here is a histogram showing the total number of steps per day
-```{r, load data and plot histogram}
+
+```r
 library(dplyr)
 # calculate and plot total steps per day
 dailysteps <- movedata %>% 
@@ -28,38 +28,49 @@ dailysteps <- movedata %>%
 hist(dailysteps$total_steps, breaks = 10, main = "Total Daily Steps", xlab = "Total steps")
 ```
 
+![](PA1_template_files/figure-html/load data and plot histogram-1.png)<!-- -->
+
 ## What is the average daily activity pattern?
 
-```{r, steps per day}
+
+```r
 #calculate mean and median steps per day
 mean_steps <- mean(dailysteps$total_steps, na.rm = TRUE)
 median_steps <- median(dailysteps$total_steps, na.rm = TRUE)
 ```
-The mean number of steps per day is `r mean_steps`.  
-The median number of steps per day is `r median_steps`.
+The mean number of steps per day is 1.0766189\times 10^{4}.  
+The median number of steps per day is 10765.
 
-```{r, steps per interval}
+
+```r
 #calculate mean steps per interval and identify which interval has the highest average
 intervalsteps <- movedata %>% 
         filter(!is.na(steps)) %>% 
         group_by(interval) %>% 
         summarise(mean_steps = mean(steps, na.rm = TRUE))
 plot(intervalsteps, type = "l", main = "Mean Steps Per Interval", ylab = "mean steps")
+```
+
+![](PA1_template_files/figure-html/steps per interval-1.png)<!-- -->
+
+```r
 max_int <- intervalsteps$interval[which.max(intervalsteps$mean_steps)]
 ```
-The 5 minute interval with the greatest average number of steps is `r max_int`.
+The 5 minute interval with the greatest average number of steps is 835.
 
 
 ## Imputing missing values
-```{r, NAs}
+
+```r
 # Calculate number of NAs
 nas <- sum(is.na(movedata$steps))
 ```
-There are `r nas` NAs in the steps dataset  
+There are 2304 NAs in the steps dataset  
 NAs will be replaced with the average number of steps for the interval
 
 Here is a plot showing the daily number of steps with the imputed NAs in the dataset
-```{r, update dataset to remove NAs}
+
+```r
 # Replace NAs with mean steps for that interval and plot histogram
 nasreplaced <- movedata
 for(i in 1:length(nasreplaced$steps)) {
@@ -81,16 +92,18 @@ median_diff <- median_steps_narep - median_steps
 hist(dailynasrep$total_steps, breaks = 10, main= "Total Daily Steps (NAs replaced)", xlab = "Total Steps")
 ```
 
-The mean number of steps per day for the updated dataset with imputed NA values is `r mean_steps_narep`, a difference of `r mean_diff` steps compared to the original dataset 
+![](PA1_template_files/figure-html/update dataset to remove NAs-1.png)<!-- -->
 
-The median number of steps per day for the updated dataset with imputed NA values is `r median_steps_narep`, a difference of `r median_diff` steps compared to the original dataset
+The mean number of steps per day for the updated dataset with imputed NA values is 1.0766189\times 10^{4}, a difference of 0 compared to the original dataset 
+
+The median number of steps per day for the updated dataset with imputed NA values is 1.0766189\times 10^{4}, a difference of 1.1886792 compared to the original dataset
 
 *Imputing NA values using this strategy does not significantly affect the overall mean and median daily step totals*
 
 ## Are there differences in activity patterns between weekdays and weekends?
 Here is a plot showing the average steps per interval for weekdays and weekends
-```{r}
-# create weekday/weekend column and plot average steps per interval for weekdays and weekends
+
+```r
 library(ggplot2)
 
 movedata$weekday <- weekdays(movedata$date)
@@ -112,4 +125,6 @@ ggplot(intervalsteps_weekday, aes(interval, mean_steps)) +
                geom_line() +
                facet_wrap(~ weekday, nrow = 2)
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
         
