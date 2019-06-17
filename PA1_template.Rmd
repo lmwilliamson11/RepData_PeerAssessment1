@@ -18,7 +18,7 @@ movedata$date <- as.Date(movedata$date)
 
 ## What is mean total number of steps taken per day?
 Here is a histogram showing the total number of steps per day
-```{r, total daily steps}
+```{r, total_daily_steps_hist}
 library(dplyr)
 # calculate and plot total steps per day
 dailysteps <- movedata %>% 
@@ -30,7 +30,7 @@ hist(dailysteps$total_steps, breaks = 10, main = "Total Daily Steps", xlab = "To
 
 ## What is the average daily activity pattern?
 
-```{r, steps per day}
+```{r, steps_per_day_hist}
 #calculate mean and median steps per day
 mean_steps <- mean(dailysteps$total_steps, na.rm = TRUE)
 median_steps <- median(dailysteps$total_steps, na.rm = TRUE)
@@ -38,7 +38,7 @@ median_steps <- median(dailysteps$total_steps, na.rm = TRUE)
 The mean number of steps per day is `r mean_steps`.  
 The median number of steps per day is `r median_steps`.
 
-```{r, steps per interval}
+```{r, steps_per_interval}
 #calculate mean steps per interval and identify which interval has the highest average
 intervalsteps <- movedata %>% 
         filter(!is.na(steps)) %>% 
@@ -59,7 +59,7 @@ There are `r nas` NAs in the steps dataset
 NAs will be replaced with the average number of steps for the interval
 
 Here is a plot showing the daily number of steps with the imputed NAs in the dataset
-```{r, daily steps imputed NAs}
+```{r, daily_steps_imputed_NAs_hist}
 # Replace NAs with mean steps for that interval and plot histogram
 nasreplaced <- movedata
 for(i in 1:length(nasreplaced$steps)) {
@@ -89,7 +89,7 @@ The median number of steps per day for the updated dataset with imputed NA value
 
 ## Are there differences in activity patterns between weekdays and weekends?
 Here is a plot showing the average steps per interval for weekdays and weekends
-```{r, weekday vs weekend}
+```{r, weekday_vs_weekend_panel_plot}
 # create weekday/weekend column and plot average steps per interval for weekdays and weekends
 library(ggplot2)
 

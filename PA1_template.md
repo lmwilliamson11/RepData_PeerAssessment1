@@ -28,7 +28,7 @@ dailysteps <- movedata %>%
 hist(dailysteps$total_steps, breaks = 10, main = "Total Daily Steps", xlab = "Total steps")
 ```
 
-![](PA1_template_files/figure-html/total daily steps-1.png)<!-- -->
+![](PA1_template_files/figure-html/total_daily_steps_hist-1.png)<!-- -->
 
 ## What is the average daily activity pattern?
 
@@ -51,7 +51,7 @@ intervalsteps <- movedata %>%
 plot(intervalsteps, type = "l", main = "Mean Steps Per Interval", ylab = "mean steps")
 ```
 
-![](PA1_template_files/figure-html/steps per interval-1.png)<!-- -->
+![](PA1_template_files/figure-html/steps_per_interval-1.png)<!-- -->
 
 ```r
 max_int <- intervalsteps$interval[which.max(intervalsteps$mean_steps)]
@@ -92,7 +92,7 @@ median_diff <- median_steps_narep - median_steps
 hist(dailynasrep$total_steps, breaks = 10, main= "Total Daily Steps (NAs replaced)", xlab = "Total Steps")
 ```
 
-![](PA1_template_files/figure-html/daily steps imputed NAs-1.png)<!-- -->
+![](PA1_template_files/figure-html/daily_steps_imputed_NAs_hist-1.png)<!-- -->
 
 The mean number of steps per day for the updated dataset with imputed NA values is 1.0766189\times 10^{4}, a difference of 0 steps compared to the original dataset 
 
@@ -127,5 +127,5 @@ ggplot(intervalsteps_weekday, aes(interval, mean_steps)) +
                facet_wrap(~ weekday, nrow = 2)
 ```
 
-![](PA1_template_files/figure-html/weekday vs weekend-1.png)<!-- -->
+![](PA1_template_files/figure-html/weekday_vs_weekend_panel_plot-1.png)<!-- -->
         
